@@ -14,8 +14,8 @@ import java.util.logging.Logger;
  */
 public class Producer implements Runnable {
 
-    private BlockingQueue s1;
-    private BlockingQueue s2;
+    private BlockingQueue<Long> s1;
+    private BlockingQueue<Long> s2;
     private long n;
     private Consumer consumer;
 
@@ -26,11 +26,10 @@ public class Producer implements Runnable {
 
     @Override
     public void run() {
-        while (!s1.isEmpty()) {
-            long input = (Long) s1.poll();
-            long output = fib(input);
+        Long number;
+        while ((number = s1.poll()) != null) {
             try {
-                s2.put(output);
+                s2.put(fib(number));
             } catch (InterruptedException ex) {
                 Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -31,18 +31,13 @@ public class InitThreads {
             t.start();
             threads.add(t);
         }
-
-        Consumer c1 = new Consumer(data.getS2());
+        Consumer c1 = new Consumer(data.getS2(), data.getNUMBER_COUNT());
         Thread t5 = new Thread(c1);
         t5.start();
-
         try {
             for (Thread t : threads) {
                 t.join();
             }
-            c1.setShouldRun(false);
-            t5.join();
-            c1.printSum();
         } catch (InterruptedException ex) {
             Logger.getLogger(RunThis.class.getName()).log(Level.SEVERE, null, ex);
         }

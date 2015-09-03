@@ -9,8 +9,7 @@ import fib.InitThreads;
 public class RunThis {
 
     public static void main(String[] args) {
-
-        int noOfThreads = 1;
+        int noOfThreads = 4;
         long startTime = System.nanoTime();
 
         InitThreads init = new InitThreads(noOfThreads);
@@ -19,6 +18,5 @@ public class RunThis {
         long estimatedTime = System.nanoTime() - startTime;
         double result = (double) estimatedTime / 1000000000.0;
         System.out.println("It took: " + result + " seconds using " + noOfThreads + " threads.");
-
     }
 }

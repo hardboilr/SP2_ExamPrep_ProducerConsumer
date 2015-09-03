@@ -3,6 +3,8 @@ package fib;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,36 +18,41 @@ import java.util.logging.Logger;
  */
 public class Consumer implements Runnable {
 
-    private BlockingQueue s2;
-    private List<Long> list;
+    private BlockingQueue <Long> s2;
+    private long sum;
     private boolean shouldRun;
+    private int numberCount;
 
-    public Consumer(BlockingQueue s2) {
+    
+    
+    public Consumer(BlockingQueue s2, int numberCount) {
         shouldRun = true;
         this.s2 = s2;
-        list = new ArrayList();
+        sum = 0L;
+        this.numberCount = numberCount;
     }
 
     @Override
     public void run() {
-        while (shouldRun) {
-            if (!s2.isEmpty()) {
-                System.out.println("Fibonacino is: " + s2.peek());
-                try {
-                    list.add((Long) s2.take());
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        int count = 0;
+        while (count < numberCount) {
+            try {
+                long n = s2.take();
+                sum += n;
+                count++;
+                System.out.println("Fibonacci: " + n);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NullPointerException e) {
+                break;
             }
         }
+        printSum();
     }
 
     public void printSum() {
-        long sum = 0;
-        for (Long n : list) {
-            sum = sum + n;
-        }
-        System.out.println("Sum is: " + sum);
+        System.out.println("Total: " + sum);
+        
     }
 
     public void setShouldRun(boolean value) {
