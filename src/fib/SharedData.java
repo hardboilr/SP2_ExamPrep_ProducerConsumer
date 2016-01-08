@@ -2,20 +2,17 @@ package fib;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * @author Tobias Jacobsen
- *
  * Creates two blocking queues. One for raw values (s1) and one for calculated
  * values (s2). Fill s1 with values.
  *
+ * @author Tobias Jacobsen
  */
 public class SharedData {
 
-    private BlockingQueue <Long> s1;
-    private BlockingQueue <Long> s2;
+    private BlockingQueue<Long> s1;
+    private BlockingQueue<Long> s2;
     private final int NUMBER_COUNT = 11;
 
     public SharedData() {

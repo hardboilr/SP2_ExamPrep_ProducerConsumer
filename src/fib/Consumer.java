@@ -1,37 +1,30 @@
 package fib;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * 1. Take a value from s2, add value to sum and print the value.
+ *
+ * 2. When all values have been summed, print the total sum.
+ *
  * @author Tobias Jacobsen
- *
- * While shouldRun is true take a value from s2 and add it to an array until s2
- * is empty. printSum calculates the sum of all values from the array and print
- * it.
- *
  */
 public class Consumer implements Runnable {
 
-    private BlockingQueue <Long> s2;
+    private final BlockingQueue<Long> s2;
     private long sum;
-    private boolean shouldRun;
-    private int numberCount;
+    private final int numberCount;
 
-    
-    
     public Consumer(BlockingQueue s2, int numberCount) {
-        shouldRun = true;
         this.s2 = s2;
         sum = 0L;
         this.numberCount = numberCount;
     }
 
+    // keep count of how many times we sum a value, so that we only sum values 
+    // corresponding to the number of values in quoue
     @Override
     public void run() {
         int count = 0;
@@ -50,13 +43,7 @@ public class Consumer implements Runnable {
         printSum();
     }
 
-    public void printSum() {
+    private void printSum() {
         System.out.println("Total: " + sum);
-        
     }
-
-    public void setShouldRun(boolean value) {
-        shouldRun = value;
-    }
-
 }

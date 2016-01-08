@@ -7,17 +7,20 @@ import java.util.logging.Logger;
 import main.RunThis;
 
 /**
- * @author Tobias Jacobsen
+ * 1. Creates and starts a number of producer threads, corresponding to number
+ * of specified threads.
  *
- * Creates a number of producer threads in a loop. Create one consumer thread.
- * Start all threads. When all producer threads are done, then also stop
- * consumer thread and print sum.
+ * 2. Create and start one consumer thread.
+ *
+ * 3. Wait for all threads to finish.
+ *
+ * @author Tobias Jacobsen
  */
 public class InitThreads {
 
-    private List<Thread> threads;
-    private int noOfThreads;
-    private SharedData data;
+    private final List<Thread> threads; //the Thread-object extends Object and implements Runnable
+    private final int noOfThreads; // the number of threads we want to utilize
+    private final SharedData data; // the raw data we want to calculate
 
     public InitThreads(int noOfThreads) {
         threads = new ArrayList();
@@ -26,14 +29,20 @@ public class InitThreads {
     }
 
     public void start() {
+        // create producer threads with Producer runnables and put those in a list
         for (int i = 0; i <= noOfThreads; i++) {
             Thread t = new Thread(new Producer(data.getS1(), data.getS2()));
             t.start();
             threads.add(t);
         }
+
+        // create a single consumer thread with a Consumer runnable
         Consumer c1 = new Consumer(data.getS2(), data.getNUMBER_COUNT());
         Thread t5 = new Thread(c1);
         t5.start();
+        threads.add(t5);
+
+        // wait for all threads to finish their job
         try {
             for (Thread t : threads) {
                 t.join();
