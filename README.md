@@ -1,4 +1,5 @@
 #General part
+
 >When and why will we use Threads in our programs?
 
 Multithreading in Java means running multiple lines of code simultainously. Multi-threading enables the programmer to better utilize systems with multiple CPU cores, which can improve the performance of the application. Modern CPU designs favour cores over clock frequency. This CPU-design makes the CPU more energy-efficient while maintaining processing power. 
