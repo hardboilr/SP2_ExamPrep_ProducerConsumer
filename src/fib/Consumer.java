@@ -27,13 +27,18 @@ public class Consumer implements Runnable {
     // corresponding to the number of values in quoue
     @Override
     public void run() {
+        boolean shouldRun = true;
         int count = 0;
-        while (count < numberCount) {
+        while (shouldRun) {
             try {
                 long n = s2.take();
-                sum += n;
-                count++;
-                System.out.println("Fibonacci: " + n);
+                if (n == -1l) {
+                    shouldRun = false;
+                } else {
+                    sum += n;
+                    count++;
+                    System.out.println("Fibonacci: " + n);
+                }
             } catch (InterruptedException ex) {
                 Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NullPointerException e) {
