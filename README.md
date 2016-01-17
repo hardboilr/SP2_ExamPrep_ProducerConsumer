@@ -1,10 +1,4 @@
-#General part
-
->When and why will we use Threads in our programs?
-
->Explain about the Race Condition Problem
-
->Explain about the Producer/Consumer-problem and how to solve it in modern Java Programs
+#Notes
 
 >Execute the method with 1, 2, 3, and 4 as argument. Calculate the time it takes for each execution and explain (as good as you can) the result.
 
